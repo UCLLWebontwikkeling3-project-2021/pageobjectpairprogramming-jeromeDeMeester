@@ -34,4 +34,11 @@ public class PersonOverviewPage extends Page {
     }
 
 
+
+    public boolean hasErrorMessage (String message) {
+        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
+        return (message.equals(errorMsg.getText()));
+    }
+
+
 }
