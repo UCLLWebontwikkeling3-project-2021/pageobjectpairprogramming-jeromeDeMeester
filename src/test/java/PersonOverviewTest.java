@@ -8,37 +8,26 @@ import org.openqa.selenium.support.PageFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/*
+ * @author Jerome de Meester en Robbe Vanluyten
+ */
+
 
 public class PersonOverviewTest {
     private WebDriver driver;
+    private LoginTest loginTest = new LoginTest();
     private String path = "http://localhost:8080/Controller";
 
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
         driver = new ChromeDriver();
-        driver.get(path+"?command=Overview");
     }
 
     @After
     public void clean() {
         driver.quit();
     }
-
-    public void loginAsUser() {
-        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
-        loginPage.setUserId("jan");
-        loginPage.setPassword("t");
-        loginPage.submitValid();
-    }
-    public void loginAsAdmin() {
-        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
-        loginPage.setUserId("admin");
-        loginPage.setPassword("t");
-        loginPage.submitValid();
-    }
-
-
 
     @Test
     public void test_Overview_NotLoggedIn_ShowsError() {
@@ -48,17 +37,20 @@ public class PersonOverviewTest {
     }
 
     @Test void test_Overview_LoggedInAsUser_ShowsError() {
-        loginAsUser();
+        loginTest.loginAsUser();
         PersonOverviewPage personOverviewPage = PageFactory.initElements(driver, PersonOverviewPage.class);
         assertEquals("Home", personOverviewPage.getTitle());
         assertTrue(personOverviewPage.hasErrorMessage("You are not allowed to view this page"));
     }
 
     @Test
-    public void test_Register_AllFieldsFilledInCorrectly_UserIsRegistered() {
+    public void test_Overview_loggedInAsAdmin_ShowsOverview() {
+        loginTest.loginAsAdmin();
         PersonOverviewPage personOverviewPage = PageFactory.initElements(driver, PersonOverviewPage.class);
-        personOverviewPage.containsUserWithEmail("Jan");
-        personOverviewPage.containsUserWithUserId("jan");
+        assertTrue(personOverviewPage.containsEmail("jan@mail.com"));
+        assertTrue(personOverviewPage.containsUserId("jan"));
+        assertTrue(personOverviewPage.containsLastName("Jan"));
+        assertTrue(personOverviewPage.containsLastName("Jannsens"));
     }
 
 }

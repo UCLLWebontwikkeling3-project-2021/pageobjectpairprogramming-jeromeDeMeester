@@ -1,5 +1,9 @@
 import org.openqa.selenium.WebDriver;
 
+/*
+ * @author Jerome de Meester en Robbe Vanluyten
+ */
+
 public abstract class Page {
 
     WebDriver driver;

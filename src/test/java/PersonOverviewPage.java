@@ -1,8 +1,11 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
+
+/*
+ * @author Jerome de Meester en Robbe Vanluyten
+ */
 
 public class PersonOverviewPage extends Page {
 
@@ -11,7 +14,7 @@ public class PersonOverviewPage extends Page {
         this.driver.get(getPath()+"?command=Overview");
     }
 
-    public boolean containsUserWithEmail(String email) {
+    public boolean containsEmail(String email) {
         ArrayList<WebElement> listItems=(ArrayList<WebElement>) this.driver.findElements(By.cssSelector("td"));
         boolean found=false;
         for (WebElement listItem:listItems) {
@@ -22,7 +25,29 @@ public class PersonOverviewPage extends Page {
         return found;
     }
 
-    public boolean containsUserWithUserId(String userid) {
+    public boolean containsUserId(String userid) {
+        ArrayList<WebElement> listItems=(ArrayList<WebElement>) this.driver.findElements(By.cssSelector("td"));
+        boolean found=false;
+        for (WebElement listItem:listItems) {
+            if (listItem.getText().contains(userid)) {
+                found=true;
+            }
+        }
+        return found;
+    }
+
+    public boolean containsFirstName(String firstName) {
+        ArrayList<WebElement> listItems=(ArrayList<WebElement>) this.driver.findElements(By.cssSelector("td"));
+        boolean found=false;
+        for (WebElement listItem:listItems) {
+            if (listItem.getText().contains(firstName)) {
+                found=true;
+            }
+        }
+        return found;
+    }
+
+    public boolean containsLastName(String userid) {
         ArrayList<WebElement> listItems=(ArrayList<WebElement>) this.driver.findElements(By.cssSelector("td"));
         boolean found=false;
         for (WebElement listItem:listItems) {

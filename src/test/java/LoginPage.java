@@ -3,6 +3,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/*
+ * @author Jerome de Meester en Robbe Vanluyten
+ */
+
 public class LoginPage extends Page {
 
     @FindBy(id="userId")
@@ -17,6 +21,7 @@ public class LoginPage extends Page {
     public LoginPage(WebDriver driver) {
         super(driver);
     }
+
 
     public void setUserId(String userId) {
         userIdField.clear();
